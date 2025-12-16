@@ -13,7 +13,7 @@
     <title> Dairy products | {% block title %}{% endblock title %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info text-center">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img src="{% static "app/images/RAR.png" %}" alt="" width=70 height =70/>
@@ -64,16 +64,28 @@
                     <li><a class='dropdown-item' href="#">Profile</a></li>
                     <li><a class='dropdown-item' href="#">Orders</a></li>
                     <li><a class='dropdown-item' href="#">Change passwords</a></li>
-                    <li><a class='dropdown-item' href="#">Logout</a></li>
+                    <li><a class='dropdown-item' href="#">Logout </a></li>
                 </ul>
+            </li>
+            <li class="nav-item-mx-2">
+                <a href="#" class="nav-link text-white">Cart 4</a>
+            </li>
+            <li class="nav-item-mx-2">
+                <a href="#" class="nav-link text-white">Wishlist 4</a>
+            </li>
+            <li class="nav-item-mx-2">
+                <a href="#" class="nav-link text-white">Login</a>
+            </li>
+            <li class="nav-item-mx-2">
+                <a href="#" class="nav-link text-white">Registration</a>
             </li>
         </ul>
     </div>
     </nav>
-
+    {% block banner_slider %}{% endblock banner_slider %}
     {% block main-content %}{% endblock main-content %}
 
-    <footer>
+    <footer class="footer fixed-bottom bg-info text-center text-white ">
         Copyright : 2025 || Developed by : RAR 
     </footer>
 
