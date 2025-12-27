@@ -10,7 +10,7 @@
                 <div class='list-group'>
                     {% for val in title %}
                         <a href="{% url "category-title" val.title %}" class="list-group-item 
-                        list-group-item-action" aria-center:"true">{{val.title}}</a>
+                        list-group-item-action " aria-center:"true" >{{val.title}}</a>
                     {% endfor %}
                 </div>
             </div>
@@ -22,10 +22,14 @@
                                 <div>
                                     <img src="{{prod.product_image.url}}" width="300px" height="200px" alt="vhbcjvrhb"/>
                                     <div class-'fw-bold text-danger'>
-                                        Rs.{{prod.discounted_price}}/-
-                                        <small class="fw-light text-decoration-line-through">
-                                            {{prod.selling_price}}
-                                        </small>
+                                        <div class="fw-bold">{{prod.title}}</div>
+                                        <div class="fw-bold text-danger">
+                                            Rs.{{prod.discounted_price}}/-
+                                            <small class="fw-light text-decoration-line-through">
+                                                {{prod.selling_price}}
+                                            </small>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </a>
