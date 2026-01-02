@@ -8,4 +8,8 @@ urlpatterns = [
     path("category-title/<val>",views.CategoryTitle.as_view(),name="category-title"),
     path('about/',views.about, name='about'),
     path('contact/',views.contact, name='contact'),
+
+    #login authentication
+    path('registration/',views.CustomerregistrationView.as_view(), name='customerregistration'),
+    
 ]

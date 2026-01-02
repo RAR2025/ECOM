@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.views import View
 from .models import Product
 from django.db.models import Count
+from .forms import CustomerRegistrationForm
 
+from django.contrib import messages
 # Create your views here.
 def home(request):
     return render(request, "app/home.html")
@@ -12,6 +14,8 @@ def about(request):
 
 def contact(request):
     return render(request, 'app/contact.html')
+
+
 
 class CategoryView(View):
     def get(self,request,val):
@@ -30,3 +34,17 @@ class CategoryTitle(View):
         product = Product.objects.filter(title=val)
         title = Product.objects.filter(category=product[0].category).values('title')
         return render(request, "app/category.html",locals())
+    
+
+class CustomerregistrationView(View):
+    def get(self,request):
+        form = CustomerRegistrationForm()
+        return render(request,'app/customerregistration.html',locals())
+    def post(self,request):
+        form = CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()    
+            messages.success(request,"Congradulation! User register Successfully")
+        else:
+            messages.warning(request,"Invalid input data")
+        return render(request,'app/customerregistration.html',locals())
