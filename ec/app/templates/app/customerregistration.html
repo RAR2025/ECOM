@@ -13,10 +13,10 @@
                     {% for fm in form %}
                         {{fm.label_tag}}{{fm}} <small class='text-danger'>{{fm.errors|striptags}}</small> <br>
                     {% endfor %}
-                    <input type="submit" value='Submit' class="btn btn-primary"> <br>
+                    <input type="submit" value='Submit' class="btn btn-primary"><br>
 
                     <div class="text-center text-primary fw-bold">
-                        <small>Existing user ? <a href="#" class="text-danger">
+                        <small>Existing user ? <a href="{% url "login" %}" class="text-danger">
                             login Now
                         </a></small>
                     </div>
