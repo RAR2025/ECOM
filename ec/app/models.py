@@ -1,6 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
+
+from django.core.validators import RegexValidator
+
+phone_validator = RegexValidator(
+    regex=r'^[6-9]\d{9}$',
+    message='Enter a valid 10-digit Indian mobile number'
+)
 STATE_CHOICES = (
     # Union Territories
     ('Andaman and Nicobar Islands', 'Andaman and Nicobar Islands'),
@@ -71,7 +78,7 @@ class Customer(models.Model):
     name= models.CharField(max_length=200)
     locality = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
-    mobile = models.IntegerField(default=0)
+    mobile = models.CharField(max_length=10,validators=[phone_validator],unique=True)
     zipcode = models.IntegerField()
     state = models.CharField(choices=STATE_CHOICES, max_length=100 )
     def __str__(self):

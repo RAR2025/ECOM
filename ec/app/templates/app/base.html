@@ -58,10 +58,10 @@
         <ul class = "navbar-nav me-auto mb-2 mb-lg-0">
             <li class='nav-item dropdown mx-2'>
                 <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                RAR
+                {{request.user}}
                 </a>
                 <ul class='dropdown-menu'>
-                    <li><a class='dropdown-item' href="#">Profile</a></li>
+                    <li><a class='dropdown-item' href="{% url "profile" %}">Profile</a></li>
                     <li><a class='dropdown-item' href="#">Orders</a></li>
                     <li><a class='dropdown-item' href="#">Change passwords</a></li>
                     <li><a class='dropdown-item' href="#">Logout </a></li>
