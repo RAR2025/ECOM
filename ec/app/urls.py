@@ -10,7 +10,8 @@ urlpatterns = [
     path('about/',views.about, name='about'),
     path('contact/',views.contact, name='contact'),
     path('profile/',views.ProfileView.as_view(), name='profile' ),
-    path('Address/',views.ProfileView.as_view(), name='address' ),
+    path('Address/',views.address, name='address' ),
+    path('updateAddress/<int:pk>',views.updateAddress.as_view(),name ="updateAddress" ),
 
 
     #login authentication
