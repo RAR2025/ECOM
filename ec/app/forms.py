@@ -19,7 +19,9 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs= {'autocomplete':'current-password','class':'form-control'}))
 
 class MyPasswordRestForm(PasswordChangeForm):
-    pass
+    old_password = forms.CharField(label="old_password", widget=forms.PasswordInput(attrs={'autofocus':'true','autocomplete': 'current-password','class':'form-control'}))
+    new_password1 = forms.CharField(label="New Password", widget= forms.PasswordInput(attrs = {'autofocus':'true','autocomplete':'current-password', 'class':'form-control'}))
+    new_password2 = forms.CharField(label="confirm password", widget = forms.PasswordInput(attrs={'autocomplete':'current-password','class':'form-control'}))
 
 class CustomerProfileForm(forms.ModelForm):
     class Meta:

@@ -84,7 +84,8 @@ class updateAddress(View):
         form = CustomerProfileForm(instance=add)
         return render(request,'app/updateaddress.html',locals())
     def post(self, request, pk):
-        form = CustomerProfileForm(request.POST)
+        add = Customer.objects.get(pk=pk)
+        form = CustomerProfileForm(request.POST, instance=add)
         if form.is_valid():
             add = Customer.objects.get(pk=pk)
             add.name = form.cleaned_data['name']
@@ -98,3 +99,5 @@ class updateAddress(View):
         else:
             messages.warning(request,"Invalid Data Input")
         return redirect('address')
+    
+
