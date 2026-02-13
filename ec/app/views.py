@@ -84,8 +84,7 @@ class updateAddress(View):
         form = CustomerProfileForm(instance=add)
         return render(request,'app/updateaddress.html',locals())
     def post(self, request, pk):
-        add = Customer.objects.get(pk = pk)
-        form = CustomerProfileForm(request.POST, instance=add)
+        form = CustomerProfileForm(request.POST)
         if form.is_valid():
             add = Customer.objects.get(pk=pk)
             add.name = form.cleaned_data['name']
