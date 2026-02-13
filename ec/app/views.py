@@ -84,16 +84,10 @@ class updateAddress(View):
         form = CustomerProfileForm(instance=add)
         return render(request,'app/updateaddress.html',locals())
     def post(self, request, pk):
-        form = CustomerProfileForm(request.POST)
+        add = Customer.objects.get(pk=pk)
+        form = CustomerProfileForm(request.POST, instance=add)
         if form.is_valid():
-            add = Customer.objects.get(pk=pk)
-            add.name = form.cleaned_data['name']
-            add.locality = form.cleaned_data['locality']
-            add.city = form.cleaned_data['city']
-            add.mobile = form.cleaned_data['mobile']
-            add.state = form.cleaned_data['state']
-            add.zipcode = form.cleaned_data['zipcode']
-            add.save()
+            form.save()
             messages.success(request, "Congratulations! Profile Save Successfully")
         else:
             messages.warning(request,"Invalid Data Input")

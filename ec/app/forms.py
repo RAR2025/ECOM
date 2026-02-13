@@ -18,6 +18,11 @@ class LoginForm(AuthenticationForm):
     username = UsernameField(widget = forms.TextInput(attrs={'autofocus':'true', 'class':'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs= {'autocomplete':'current-password','class':'form-control'}))
 
+class MyPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label='Old Password', widget=forms.PasswordInput(attrs={'autofocus':'true', 'autocomplete':'current-password','class':'form-control'}))
+    new_password1 = forms.CharField(label='new Password',widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
+    new_password2 = forms.CharField(label='confirm Password',widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
+
 class MyPasswordRestForm(PasswordChangeForm):
     pass
 
