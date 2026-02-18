@@ -92,3 +92,13 @@ class updateAddress(View):
         else:
             messages.warning(request,"Invalid Data Input")
         return redirect('address')
+
+
+# simple logout wrapper so <a href="{% url 'logout' %}"> works (accepts GET)
+from django.contrib.auth import logout as auth_logout
+from django.shortcuts import redirect as _redirect
+
+def logout_view(request):
+    """Log out the user and redirect to the login page (accepts GET/POST)."""
+    auth_logout(request)
+    return _redirect('login')
