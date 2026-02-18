@@ -12,7 +12,8 @@ urlpatterns = [
     path('profile/',views.ProfileView.as_view(), name='profile' ),
     path('Address/',views.address, name='address' ),
     path('updateAddress/<int:pk>',views.updateAddress.as_view(),name ="updateAddress" ),
-
+    path('add-to-cart', views.add_to_cart, name="add-to-cart"),
+    path('cart/', views.show_cart, name='showcart'),
 
     #login authentication
     path('registration/',views.CustomerregistrationView.as_view(), name='customerregistration'),

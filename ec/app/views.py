@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import Product
+from .models import Product, Cart
 from django.db.models import Count
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from.models import Customer
@@ -102,3 +102,12 @@ def logout_view(request):
     """Log out the user and redirect to the login page (accepts GET/POST)."""
     auth_logout(request)
     return _redirect('login')
+
+def add_to_cart(request):
+    user = request.user
+    product_id = request.GET.get('prod_id')
+    product = Product.objects.get(id=product_id)
+    Cart(user = user, product = product).save()
+
+def show_cart():
+    pass
