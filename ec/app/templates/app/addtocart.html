@@ -1,0 +1,107 @@
+{% extends "app/base.html" %}
+
+{% block title %}Shopping Cart{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <h1 class="mb-4">Shopping Cart</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% if cart_items %}
+        <div class="row g-4">
+            <div class="col-lg-8">
+                {% for item in cart_items %}
+                    <div class="card mb-3 cart-item" data-update-url="{% url 'update-cart' item.pk %}">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-3 text-center p-2">
+                                {% if item.product.product_image %}
+                                    <img src="{{ item.product.product_image.url }}" class="img-fluid rounded" alt="{{ item.product.title }}">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-5">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.product.title }}</h5>
+                                    <p class="mb-1">Rs. {{ item.product.discounted_price }}/- each</p>
+                                    <p class="text-muted mb-0">Item total: Rs. <span class="item-total">{{ item.total_cost }}</span>/-</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 p-3">
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control quantity-input" aria-label="Quantity for {{ item.product.title }}">
+                                <form method="post" action="{% url 'remove-from-cart' item.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger w-100">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Cart Summary</h4>
+                        <hr>
+                        <p class="d-flex justify-content-between">
+                            <span>Total</span>
+                            <strong>Rs. <span id="cart-total">{{ total_cost }}</span>/-</strong>
+                        </p>
+                        <button type="button" class="btn btn-success w-100" disabled>Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Your cart is empty. <a href="/" class="alert-link">Continue shopping</a>.
+        </div>
+    {% endif %}
+</div>
+{% endblock main-content %}
+
+{% block extra_scripts %}
+<script>
+    document.querySelectorAll('.quantity-input').forEach(function (input) {
+        input.addEventListener('change', function () {
+            const cartItem = input.closest('.cart-item');
+            const csrfToken = cartItem.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch(cartItem.dataset.updateUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({quantity: input.value}),
+            })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Unable to update cart.');
+                    }
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data.removed) {
+                        cartItem.remove();
+                        if (!document.querySelector('.cart-item')) {
+                            window.location.reload();
+                            return;
+                        }
+                    } else {
+                        cartItem.querySelector('.item-total').textContent = data.item_total;
+                    }
+                    document.querySelector('#cart-total').textContent = data.cart_total;
+                    document.querySelector('#cart-count').textContent = data.cart_count;
+                })
+                .catch(function () {
+                    window.location.reload();
+                });
+        });
+    });
+</script>
+{% endblock extra_scripts %}

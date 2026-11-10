@@ -40,3 +40,18 @@ A basic Django e-commerce website.
    ```
 
 4. Open your browser and visit: http://127.0.0.1:8000/
+
+## Local Admin Account
+
+The local development superuser uses:
+
+- Username: `testUser`
+- Email: `test@gmail.com`
+
+Set or reset the password locally with:
+
+```bash
+python manage.py shell -c "from django.contrib.auth import get_user_model; u=get_user_model().objects.get(username='testUser'); u.set_password('your-local-password'); u.save()"
+```
+
+Do not commit passwords or other credentials to the repository.

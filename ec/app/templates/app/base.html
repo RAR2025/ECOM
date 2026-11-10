@@ -69,10 +69,7 @@
                 </ul>
             </li>
             <li class="nav-item-mx-2">
-                <a href="#" class="nav-link text-white">Cart 4</a>
-            </li>
-            <li class="nav-item-mx-2">
-                <a href="#" class="nav-link text-white">Wishlist 4</a>
+                <a href="{% url 'showcart' %}" class="nav-link text-white">Cart <span id="cart-count">{{ cart_count }}</span></a>
             </li>
             {% else %}
             <li class="nav-item-mx-2">
@@ -89,6 +86,7 @@
     {% block banner_slider %}{% endblock banner_slider %}
     {% block Information %}{% endblock Information %}
     {% block main-content %}{% endblock main-content %}
+    {% block extra_scripts %}{% endblock extra_scripts %}
 
     <footer class="footer fixed-bottom bg-info text-center text-white ">
         Copyright : 2025 || Developed by : RAR 
